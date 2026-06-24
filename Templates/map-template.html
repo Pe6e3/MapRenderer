@@ -67,6 +67,11 @@
         .leaflet-control-attribution {
             font-size: 10px;
         }
+
+        .leaflet-bottom {
+            display: none;
+        }
+        
     </style>
 </head>
 
@@ -137,7 +142,7 @@
 
                     if (config.showLabels && p.label) {
                         var labelIcon = L.divIcon({
-                            className: 'map-label',
+                            className: 'map-label-icon',
                             html: '<div class="map-label">' + escapeHtml(p.label) + '</div>',
                             iconSize: null,
                             iconAnchor: [-10, 8]
