@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TrackMapRenderer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c13646dd9285f198f5dc7d459400b6ebe0842860")]
 [assembly: System.Reflection.AssemblyProductAttribute("TrackMapRenderer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TrackMapRenderer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

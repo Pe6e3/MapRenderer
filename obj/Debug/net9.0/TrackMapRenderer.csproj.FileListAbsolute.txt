@@ -372,3 +372,4 @@ D:\Projects\ISTT-Gitlab\MapRenderer\obj\Debug\net9.0\refint\TrackMapRenderer.dll
 D:\Projects\ISTT-Gitlab\MapRenderer\obj\Debug\net9.0\TrackMapRenderer.pdb
 D:\Projects\ISTT-Gitlab\MapRenderer\obj\Debug\net9.0\TrackMapRenderer.genruntimeconfig.cache
 D:\Projects\ISTT-Gitlab\MapRenderer\obj\Debug\net9.0\ref\TrackMapRenderer.dll
+D:\Projects\ISTT-Gitlab\MapRenderer\obj\Debug\net9.0\TrackMapRenderer.sourcelink.json

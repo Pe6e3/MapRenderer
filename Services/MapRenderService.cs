@@ -48,7 +48,7 @@ public class MapRenderService
         }
     }
 
-    public async Task<byte[]> RenderAsync(RenderRequest request, string baseUrl)
+    public async Task<byte[]> RenderAsync(RenderRequest request, string internalBaseUrl)
     {
         ValidateRequest(request);
 
@@ -59,7 +59,7 @@ public class MapRenderService
 
         try
         {
-            var url = $"{baseUrl}/_internal/render/{renderId}";
+            var url = $"{internalBaseUrl}/_internal/render/{renderId}";
             _logger.LogInformation("Rendering map {RenderId} at {Url}", renderId, url);
 
             var screenshot = await _playwright.CaptureScreenshotAsync(url, request.Width, request.Height);

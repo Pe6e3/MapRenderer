@@ -8,17 +8,24 @@ namespace TrackMapRenderer.Controllers;
 public class MapController : ControllerBase
 {
     private readonly MapRenderService _renderService;
+    private readonly IConfiguration _configuration;
 
-    public MapController(MapRenderService renderService)
+    public MapController(MapRenderService renderService, IConfiguration configuration)
     {
         _renderService = renderService;
+        _configuration = configuration;
+    }
+
+    private string GetInternalBaseUrl()
+    {
+        return _configuration.GetValue<string>("MapRender:InternalBaseUrl")
+            ?? "http://localhost:5000";
     }
 
     [HttpPost("api/map/render")]
     public async Task<IActionResult> Render([FromBody] RenderRequest request)
     {
-        var baseUrl = $"{Request.Scheme}://{Request.Host}";
-        var imageBytes = await _renderService.RenderAsync(request, baseUrl);
+        var imageBytes = await _renderService.RenderAsync(request, GetInternalBaseUrl());
         return File(imageBytes, "image/png");
     }
 
@@ -39,8 +46,7 @@ public class MapController : ControllerBase
             Options = new RenderOptions()
         };
 
-        var baseUrl = $"{Request.Scheme}://{Request.Host}";
-        var imageBytes = await _renderService.RenderAsync(request, baseUrl);
+        var imageBytes = await _renderService.RenderAsync(request, GetInternalBaseUrl());
         return File(imageBytes, "image/png");
     }
 
