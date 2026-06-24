@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.Playwright" Version="1.52.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="Templates\**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>
