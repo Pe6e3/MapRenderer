@@ -24,14 +24,6 @@ public class MapRenderService
             throw new ArgumentException("At least 2 points are required");
         if (request.Points.Count > 100)
             throw new ArgumentException("Maximum 100 points allowed");
-        if (request.Width < 300 || request.Width > 2000)
-            throw new ArgumentException("Width must be between 300 and 2000");
-        if (request.Height < 300 || request.Height > 2000)
-            throw new ArgumentException("Height must be between 300 and 2000");
-        if (request.Title?.Length > 300)
-            throw new ArgumentException("Title maximum length is 300 characters");
-        if (request.Subtitle?.Length > 200)
-            throw new ArgumentException("Subtitle maximum length is 200 characters");
 
         foreach (var point in request.Points)
         {
@@ -41,10 +33,6 @@ public class MapRenderService
                 throw new ArgumentException($"Invalid longitude: {point.Lon}. Must be between -180 and 180");
             if (point.Label?.Length > 100)
                 throw new ArgumentException("Label maximum length is 100 characters");
-
-            var validTypes = new[] { "start", "middle", "finish" };
-            if (!validTypes.Contains(point.Type))
-                throw new ArgumentException($"Invalid point type: {point.Type}. Must be start, middle, or finish");
         }
     }
 

@@ -22,7 +22,8 @@ public class LeafletHtmlBuilder
             lat = p.Lat,
             lon = p.Lon,
             label = p.Label ?? "",
-            type = p.Type
+            type = p.Type,
+            timestamp = p.Timestamp ?? ""
         }));
 
         var sb = new StringBuilder();
