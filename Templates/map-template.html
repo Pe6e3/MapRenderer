@@ -23,6 +23,7 @@
         #map {
             width: 100%;
             height: 100%;
+            position: relative;
         }
 
         .map-label {
@@ -39,12 +40,15 @@
 
         .title-overlay {
             position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 1000;
             background: rgba(0, 0, 0, 0.75);
             color: white;
             padding: 14px 24px;
             border-radius: 8px;
-            text-align: left;
+            text-align: center;
             font-family: Arial, sans-serif;
             pointer-events: none;
             min-width: 220px;
@@ -62,6 +66,13 @@
             font-size: 16px;
             opacity: 0.9;
             line-height: 1.35;
+        }
+
+        .title-overlay .title-arrow {
+            font-size: 20px;
+            line-height: 1.4;
+            opacity: 0.7;
+            text-align: center;
         }
 
         .leaflet-control-attribution {
@@ -152,43 +163,34 @@
                 }
             }
 
-            if (config.title || config.subtitle) {
+            var startPoint = null;
+            var finishPoint = null;
+            for (var i = 0; i < points.length; i++) {
+                if (points[i].type === 'start' && !startPoint) startPoint = points[i];
+                if (points[i].type === 'finish') finishPoint = points[i];
+            }
+
+            if (startPoint || finishPoint) {
                 var titleDiv = L.DomUtil.create('div', 'title-overlay');
                 var titleHtml = '';
-                if (config.title) {
-                    titleHtml += '<div class="title">' + escapeHtml(config.title) + '</div>';
+
+                if (startPoint) {
+                    if (startPoint.label) titleHtml += '<div class="title">' + escapeHtml(startPoint.label) + '</div>';
+                    if (startPoint.timestamp) titleHtml += '<div class="subtitle">' + escapeHtml(startPoint.timestamp) + '</div>';
                 }
 
-                var startPoint = null;
-                var finishPoint = null;
-                for (var i = 0; i < points.length; i++) {
-                    if (points[i].type === 'start' && !startPoint) startPoint = points[i];
-                    if (points[i].type === 'finish') finishPoint = points[i];
+                if (startPoint && finishPoint) {
+                    titleHtml += '<div class="title-arrow">⇩</div>';
                 }
 
-                var lines = [];
-                if (startPoint && startPoint.timestamp) {
-                    var label = startPoint.label ? ' ' + escapeHtml(startPoint.label) : '';
-                    lines.push(escapeHtml(startPoint.timestamp) + label);
-                }
-                if (finishPoint && finishPoint.timestamp) {
-                    var label = finishPoint.label ? ' ' + escapeHtml(finishPoint.label) : '';
-                    lines.push(escapeHtml(finishPoint.timestamp) + label);
-                }
-
-                if (lines.length > 0) {
-                    titleHtml += '<div class="subtitle">' + lines.join('<br>') + '</div>';
-                } else if (config.subtitle) {
-                    titleHtml += '<div class="subtitle">' + escapeHtml(config.subtitle) + '</div>';
+                if (finishPoint) {
+                    if (finishPoint.label) titleHtml += '<div class="title">' + escapeHtml(finishPoint.label) + '</div>';
+                    if (finishPoint.timestamp) titleHtml += '<div class="subtitle">' + escapeHtml(finishPoint.timestamp) + '</div>';
                 }
 
                 titleDiv.innerHTML = titleHtml;
 
-                var TitleControl = L.Control.extend({
-                    options: { position: 'topleft' },
-                    onAdd: function () { return titleDiv; }
-                });
-                new TitleControl().addTo(map);
+                document.getElementById('map').appendChild(titleDiv);
             }
 
             if (config.autoFit && bounds.isValid()) {
