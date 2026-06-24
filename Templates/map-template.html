@@ -1,52 +1,67 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TrackMapRenderer</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { width: 100%; height: 100%; overflow: hidden; }
-        #map { width: 100%; height: 100%; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
 
         .map-label {
-            background: white;
+            background: rgba(255, 255, 255, 0);
             border-radius: 4px;
             padding: 2px 6px;
             font-size: 12px;
             font-family: Arial, sans-serif;
             color: #333;
             white-space: nowrap;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.3);
-            border: 1px solid rgba(0,0,0,0.1);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         .title-overlay {
             position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
             z-index: 1000;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.75);
             color: white;
-            padding: 8px 20px;
-            border-radius: 6px;
-            text-align: center;
+            padding: 14px 24px;
+            border-radius: 8px;
+            text-align: left;
             font-family: Arial, sans-serif;
             pointer-events: none;
-            max-width: 90%;
+            min-width: 220px;
+            max-width: 360px;
         }
 
         .title-overlay .title {
-            font-size: 16px;
+            font-size: 22px;
             font-weight: bold;
-            margin-bottom: 2px;
+            margin-bottom: 6px;
+            line-height: 1.2;
         }
 
         .title-overlay .subtitle {
-            font-size: 12px;
-            opacity: 0.85;
+            font-size: 16px;
+            opacity: 0.9;
+            line-height: 1.35;
         }
 
         .leaflet-control-attribution {
@@ -54,6 +69,7 @@
         }
     </style>
 </head>
+
 <body>
     <div id="map"></div>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -66,7 +82,7 @@
             return div.innerHTML;
         }
 
-        (function() {
+        (function () {
             var tileUrl = config.tileUrl;
             if (config.mapTheme === 'dark') {
                 tileUrl = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
@@ -90,7 +106,7 @@
             }
 
             if (config.showTrack && points.length > 1) {
-                var trackCoords = points.map(function(p) { return [p.lat, p.lon]; });
+                var trackCoords = points.map(function (p) { return [p.lat, p.lon]; });
                 L.polyline(trackCoords, {
                     color: '#1976D2',
                     weight: 4,
@@ -144,7 +160,7 @@
 
                 var TitleControl = L.Control.extend({
                     options: { position: 'topleft' },
-                    onAdd: function() { return titleDiv; }
+                    onAdd: function () { return titleDiv; }
                 });
                 new TitleControl().addTo(map);
             }
@@ -155,10 +171,11 @@
                 map.setView([0, 0], 2);
             }
 
-            map.whenReady(function() {
+            map.whenReady(function () {
                 window.__mapReady = true;
             });
         })();
     </script>
 </body>
+
 </html>

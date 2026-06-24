@@ -59,4 +59,25 @@ public class MapController : ControllerBase
 
         return Content(html, "text/html");
     }
+
+    [HttpGet("debug/template")]
+    public async Task<IActionResult> DebugTemplate()
+    {
+        var request = new RenderRequest
+        {
+            Title = "Debug: Kazakhstan → China",
+            Subtitle = "Template rendering test",
+            Width = 900,
+            Height = 600,
+            Points = new List<RoutePoint>
+            {
+                new() { Lat = 43.254841666666664, Lon = 76.85664166666666, Label = "Казахстан", Type = "start" },
+                new() { Lat = 30.58, Lon = 103.98, Label = "Китай", Type = "finish" }
+            },
+            Options = new RenderOptions()
+        };
+
+        var html = await _renderService.BuildHtmlAsync(request);
+        return Content(html, "text/html");
+    }
 }

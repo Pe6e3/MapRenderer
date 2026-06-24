@@ -48,6 +48,11 @@ public class MapRenderService
         }
     }
 
+    public Task<string> BuildHtmlAsync(RenderRequest request)
+    {
+        return _htmlBuilder.BuildHtmlAsync(request);
+    }
+
     public async Task<byte[]> RenderAsync(RenderRequest request, string internalBaseUrl)
     {
         ValidateRequest(request);
