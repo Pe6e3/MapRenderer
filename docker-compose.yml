@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  trackmaprenderer:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - tile-cache:/app/tile-cache
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - MapRender__TileCachePath=/app/tile-cache
+    restart: unless-stopped
+
+volumes:
+  tile-cache:

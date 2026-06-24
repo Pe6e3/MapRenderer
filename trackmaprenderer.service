@@ -1,0 +1,16 @@
+[Unit]
+Description=TrackMapRenderer Service
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/trackmaprenderer
+ExecStart=/usr/bin/dotnet /opt/trackmaprenderer/TrackMapRenderer.dll
+Restart=always
+RestartSec=10
+SyslogIdentifier=trackmaprenderer
+User=www-data
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=ASPNETCORE_URLS=http://0.0.0.0:5000
+
+[Install]
+WantedBy=multi-user.target
